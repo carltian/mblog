@@ -2,5 +2,16 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.template.loader import get_template
+from django.http import HttpResponse
+from datetime import datetime
+from .models import Post
 
 # Create your views here.
+def homepage(request):
+    template = get_template('index.html')
+    posts = Post.objects.all()
+    now = datetime.now()
+    html = template.render(locals())
+    post_lists = list()
+    return HttpResponse(html)
